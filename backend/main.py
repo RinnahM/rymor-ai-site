@@ -107,12 +107,7 @@ async def submit_contact_form(form: ContactForm):
         )
 
     if response.status_code >= 300:
-        # TEMPORARY: surfaces Brevo's actual error while we debug the deploy.
-        # Revert to a generic message once /contact is confirmed working.
-        raise HTTPException(
-            status_code=502,
-            detail=f"Could not send the message right now. Upstream {response.status_code}: {response.text[:300]}",
-        )
+        raise HTTPException(status_code=502, detail="Could not send the message right now.")
 
     return {"status": "sent"}
 
