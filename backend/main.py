@@ -89,22 +89,25 @@ async def submit_contact_form(form: ContactForm):
         form.message,
     ]
 
-    async with httpx.AsyncClient(timeout=20.0) as client:
-        response = await client.post(
-            "https://api.brevo.com/v3/smtp/email",
-            headers={
-                "api-key": BREVO_API_KEY,
-                "content-type": "application/json",
-                "accept": "application/json",
-            },
-            json={
-                "sender": {"name": "Rymor AI Site", "email": SENDER_EMAIL},
-                "to": [{"email": BUSINESS_EMAIL}],
-                "replyTo": {"email": form.email, "name": form.name},
-                "subject": f"New inquiry from {form.name} (Rymor AI site)",
-                "textContent": "\n".join(body_lines),
-            },
-        )
+    try:
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            response = await client.post(
+                "https://api.brevo.com/v3/smtp/email",
+                headers={
+                    "api-key": BREVO_API_KEY,
+                    "content-type": "application/json",
+                    "accept": "application/json",
+                },
+                json={
+                    "sender": {"name": "Rymor AI Site", "email": SENDER_EMAIL},
+                    "to": [{"email": BUSINESS_EMAIL}],
+                    "replyTo": {"email": form.email, "name": form.name},
+                    "subject": f"New inquiry from {form.name} (Rymor AI site)",
+                    "textContent": "\n".join(body_lines),
+                },
+            )
+    except httpx.HTTPError:
+        raise HTTPException(status_code=502, detail="Could not send the message right now.")
 
     if response.status_code >= 300:
         raise HTTPException(status_code=502, detail="Could not send the message right now.")
@@ -132,21 +135,23 @@ async def chat(payload: ChatRequest):
         for turn in payload.messages
     ]
 
-    async with httpx.AsyncClient(timeout=20.0) as client:
-        response = await client.post(
-            f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent",
-            params={"key": GEMINI_API_KEY},
-            json={
-                "systemInstruction": {"parts": [{"text": payload.persona}]},
-                "contents": contents,
-                "generationConfig": {"maxOutputTokens": 300},
-            },
-        )
-
-    if response.status_code != 200:
+    try:
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            response = await client.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent",
+                params={"key": GEMINI_API_KEY},
+                json={
+                    "systemInstruction": {"parts": [{"text": payload.persona}]},
+                    "contents": contents,
+                    "generationConfig": {"maxOutputTokens": 300},
+                },
+            )
+        if response.status_code != 200:
+            raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
+        data = response.json()
+    except httpx.HTTPError:
         raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
 
-    data = response.json()
     candidates = data.get("candidates") or []
     parts = candidates[0].get("content", {}).get("parts", []) if candidates else []
     reply_text = "".join(part.get("text", "") for part in parts)

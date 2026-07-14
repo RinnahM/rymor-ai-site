@@ -235,9 +235,12 @@ single tiny automation, no budget, a student project), be honest and kind
 rather than pushing the call.
 
 RULES
-Keep every reply under ~60 words. Never invent case studies, pricing,
-clients, or results beyond what's listed above. If you don't know
-something, say so plainly and suggest the discovery call for specifics.
+Keep every reply under ~100 words. Always answer completely in the same
+message — if you say something has multiple parts (e.g. "four services"),
+list all of them immediately rather than waiting for the visitor to ask
+a follow-up question. Never invent case studies, pricing, clients, or
+results beyond what's listed above. If you don't know something, say so
+plainly and suggest the discovery call for specifics.
 `.trim();
 
 (function initChatWidget(){
