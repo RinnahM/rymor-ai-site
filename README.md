@@ -23,7 +23,7 @@ cd backend
 python3 -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env            # fill in real SMTP + ANTHROPIC_API_KEY
+cp .env.example .env            # fill in real Brevo + ANTHROPIC_API_KEY
 uvicorn main:app --reload --port 8000
 ```
 
@@ -37,8 +37,6 @@ Everything from your original file, plus:
 
 - **Services section** (`#services`) — four-discipline grid, between the
   marquee and the work grid.
-- **Testimonials slider** — placeholder quotes in `TESTIMONIALS_DATA`
-  (in the `<script>` block); swap in real client feedback as you collect it.
 - **Custom cursor** — a dot + trailing ring replacing the system arrow on
   desktop, growing over anything clickable. Auto-disabled on touch devices
   and for `prefers-reduced-motion`. See `initCustomCursor()`.
@@ -60,7 +58,6 @@ Since it's one file, all the content lives in the `<script>` block near the
 bottom of `index.html`, as plain JS objects:
 
 - `SERVICES_DATA` — the four service cards
-- `TESTIMONIALS_DATA` — client quotes
 - `CASE_DATA` — your case studies (already filled in with real content)
 - `CERT_DATA` — certifications
 - `CHAT_PERSONA_PROMPT` — what the chat widget asks and when it pushes the call

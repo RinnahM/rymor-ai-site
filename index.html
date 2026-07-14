@@ -75,20 +75,6 @@
     <div class="case-grid" id="caseGrid"></div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="testimonials">
-    <div class="wrap reveal">
-      <div class="eyebrow" style="justify-content:center;">In Their Words</div>
-      <div class="testi-quote-icon">&ldquo;&rdquo;</div>
-      <div class="testi-slide" id="testiSlide"></div>
-      <div class="testi-nav">
-        <button class="testi-arrow" id="testiPrev" aria-label="Previous testimonial">&#8249;</button>
-        <div class="testi-dots" id="testiDots"></div>
-        <button class="testi-arrow" id="testiNext" aria-label="Next testimonial">&#8250;</button>
-      </div>
-    </div>
-  </section>
-
   <!-- ABOUT -->
   <section class="section wrap" id="about">
     <div class="about-grid reveal">
@@ -98,7 +84,7 @@
         </div>
         <div class="about-name">Rinnah Mayor</div>
         <div class="about-role">AI Automation &amp; Systems Engineer</div>
-        <div class="about-credentials">B.S. Computer Science — Your University Name</div>
+        <div class="about-credentials">B.S. Computer Science</div>
       </div>
       <div class="about-copy">
         <div class="eyebrow">About</div>
@@ -226,47 +212,6 @@ function renderServices(){
       setTimeout(() => card.classList.add('visible'), i*80);
     });
   });
-}
-
-/* =========================================================================
-   TESTIMONIALS DATA
-   Placeholder quotes — swap in real client feedback as you collect it.
-   ========================================================================= */
-const TESTIMONIALS_DATA = [
-  {
-    quote:'The dispatch system paid for itself in the first missed call it caught. We stopped losing after-hours jobs to competitors.',
-    name:'Placeholder — HVAC &amp; Plumbing Client',
-    role:'Operations Manager'
-  },
-  {
-    quote:'Our team stopped digging through old emails for answers. The knowledge system just knows — instantly, and correctly.',
-    name:'Placeholder — Apex Home Repair',
-    role:'Owner'
-  },
-  {
-    quote:'A week of content now takes ten minutes. Rinnah built something that actually runs itself, not just automates a step.',
-    name:'Placeholder — Content Client',
-    role:'Marketing Lead'
-  }
-];
-
-let testiIndex = 0;
-function renderTestimonial(){
-  const t = TESTIMONIALS_DATA[testiIndex];
-  document.getElementById('testiSlide').innerHTML = `
-    <blockquote>&ldquo;${t.quote}&rdquo;</blockquote>
-    <div class="testi-name">${t.name} — ${t.role}</div>
-  `;
-  document.getElementById('testiDots').innerHTML = TESTIMONIALS_DATA.map((_,i) => `
-    <button class="testi-dot${i===testiIndex?' active':''}" data-i="${i}" aria-label="Go to testimonial ${i+1}"></button>
-  `).join('');
-  document.querySelectorAll('.testi-dot').forEach(dot => {
-    dot.addEventListener('click', () => { testiIndex = parseInt(dot.dataset.i); renderTestimonial(); });
-  });
-}
-function testiGo(delta){
-  testiIndex = (testiIndex + delta + TESTIMONIALS_DATA.length) % TESTIMONIALS_DATA.length;
-  renderTestimonial();
 }
 
 /* =========================================================================
@@ -416,9 +361,6 @@ function renderCerts(){
    INIT
 ------------------------------------------------------------------------- */
 renderServices();
-renderTestimonial();
-document.getElementById('testiPrev').addEventListener('click', () => testiGo(-1));
-document.getElementById('testiNext').addEventListener('click', () => testiGo(1));
 renderFilterBar();
 renderCaseGrid();
 renderCerts();

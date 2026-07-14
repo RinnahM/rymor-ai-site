@@ -103,10 +103,10 @@
 /* -------------------------------------------------------------------------
    CONTACT FORM (homepage only — guarded)
    Posts to the FastAPI backend (backend/main.py) which emails the inquiry
-   to your inbox. Change API_BASE_URL if the backend runs somewhere other
-   than localhost:8000.
+   to your inbox. Deployed on Render — change this if the backend ever
+   moves elsewhere.
 ------------------------------------------------------------------------- */
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://rymor-ai-site.onrender.com';
 
 (function initContactForm(){
   const form = document.getElementById('contactForm');

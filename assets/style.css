@@ -418,43 +418,6 @@ html[data-theme="dark"] .btn-primary{ color:#14100F; }
   padding:5px 10px; border-radius:2px; pointer-events:none;
 }
 
-/* ---------- TESTIMONIALS ---------- */
-.testimonials{
-  background:var(--card);
-  border-top:1px solid var(--border-soft);
-  border-bottom:1px solid var(--border-soft);
-  padding:100px 0;
-  text-align:center;
-}
-.testi-quote-icon{
-  font-family:'Fraunces', serif; font-size:2.4rem; color:var(--accent-soft);
-  margin-bottom:6px; line-height:1;
-}
-.testi-slide{max-width:640px; margin:0 auto;}
-.testi-slide blockquote{
-  font-family:'Fraunces', serif; font-style:italic; font-weight:400;
-  font-size:clamp(1.2rem, 3vw, 1.5rem); line-height:1.5;
-}
-.testi-slide .testi-name{
-  margin-top:24px; font-size:0.92rem; color:var(--text-soft);
-}
-.testi-nav{display:flex; align-items:center; justify-content:center; gap:22px; margin-top:36px;}
-.testi-arrow{
-  width:38px; height:38px; border-radius:50%;
-  border:1px solid var(--border);
-  background:var(--bg);
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; transition:border-color .2s ease, color .2s ease;
-  color:var(--text);
-}
-.testi-arrow:hover{border-color:var(--accent); color:var(--accent);}
-.testi-dots{display:flex; gap:7px;}
-.testi-dot{
-  width:6px; height:6px; border-radius:50%;
-  background:var(--border); cursor:pointer; transition:all .25s ease; border:none; padding:0;
-}
-.testi-dot.active{width:22px; border-radius:3px; background:var(--accent);}
-
 /* ---------- ABOUT ---------- */
 .about-grid{
   display:grid; grid-template-columns:1fr; gap:48px;
