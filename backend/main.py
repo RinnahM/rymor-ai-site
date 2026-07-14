@@ -147,7 +147,11 @@ async def chat(payload: ChatRequest):
                 },
             )
         if response.status_code != 200:
-            raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
+            # TEMPORARY debug detail — revert once confirmed.
+            raise HTTPException(
+                status_code=502,
+                detail=f"Chat is temporarily unavailable. Upstream {response.status_code}: {response.text[:200]}",
+            )
         data = response.json()
     except httpx.HTTPError:
         raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
