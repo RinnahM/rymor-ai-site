@@ -6,7 +6,7 @@ Two responsibilities:
                       via the Brevo transactional email API (HTTPS — works
                       on hosts like Render's free tier that block raw SMTP).
   2. POST /chat     — proxies the floating chat widget's messages to the
-                       Claude API using the persona prompt sent from the frontend.
+                       Gemini API using the persona prompt sent from the frontend.
 
 Run locally:
     pip install -r requirements.txt
@@ -14,7 +14,7 @@ Run locally:
 
 Required environment variables (put these in a `.env` file, see .env.example):
     BREVO_API_KEY, SENDER_EMAIL, BUSINESS_EMAIL
-    ANTHROPIC_API_KEY
+    GEMINI_API_KEY
     ALLOWED_ORIGINS   (comma-separated list, e.g. http://localhost:5500,https://rymorai.com)
 """
 
@@ -30,8 +30,9 @@ BREVO_API_KEY = os.environ.get("BREVO_API_KEY")
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")  # must be a verified sender in Brevo
 BUSINESS_EMAIL = os.environ.get("BUSINESS_EMAIL", "mayorrinnah09@gmail.com")
 
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
-ANTHROPIC_MODEL = "claude-sonnet-5"
+# Free tier (no billing required) — see https://ai.google.dev/gemini-api/docs/pricing
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+GEMINI_MODEL = "gemini-2.5-flash"
 
 ALLOWED_ORIGINS = os.environ.get(
     "ALLOWED_ORIGINS", "http://localhost:5500,http://127.0.0.1:5500"
@@ -114,26 +115,31 @@ async def submit_contact_form(form: ContactForm):
 @app.post("/chat", response_model=ChatResponse)
 async def chat(payload: ChatRequest):
     """
-    Proxies the widget's conversation to the Claude API, using the persona
-    prompt the frontend sent as the system prompt. Keeping the API key here
-    (server-side) instead of in the frontend is what makes this safe to ship.
+    Proxies the widget's conversation to the Gemini API, using the persona
+    prompt the frontend sent as the system instruction. Keeping the API key
+    here (server-side) instead of in the frontend is what makes this safe
+    to ship.
     """
-    if not ANTHROPIC_API_KEY:
+    if not GEMINI_API_KEY:
         raise HTTPException(status_code=500, detail="Chat is not configured on the server yet.")
+
+    # Gemini uses "model" for the assistant's turns instead of "assistant".
+    contents = [
+        {
+            "role": "model" if turn.role == "assistant" else "user",
+            "parts": [{"text": turn.content}],
+        }
+        for turn in payload.messages
+    ]
 
     async with httpx.AsyncClient(timeout=20.0) as client:
         response = await client.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
-            },
+            f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent",
+            params={"key": GEMINI_API_KEY},
             json={
-                "model": ANTHROPIC_MODEL,
-                "max_tokens": 300,
-                "system": payload.persona,
-                "messages": [{"role": t.role, "content": t.content} for t in payload.messages],
+                "systemInstruction": {"parts": [{"text": payload.persona}]},
+                "contents": contents,
+                "generationConfig": {"maxOutputTokens": 300},
             },
         )
 
@@ -141,7 +147,9 @@ async def chat(payload: ChatRequest):
         raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
 
     data = response.json()
-    reply_text = "".join(block.get("text", "") for block in data.get("content", []))
+    candidates = data.get("candidates") or []
+    parts = candidates[0].get("content", {}).get("parts", []) if candidates else []
+    reply_text = "".join(part.get("text", "") for part in parts)
     return ChatResponse(reply=reply_text or "Could you say a bit more about that?")
 
 

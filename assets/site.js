@@ -155,8 +155,8 @@ const API_BASE_URL = 'https://rymor-ai-site.onrender.com';
    AI CHAT WIDGET
    Persona prompt qualifies visitors AND answers factual questions about
    Rinnah's background, case studies, stack and certifications — sent to
-   the backend on every message, which forwards it + history to the Claude
-   API as the system prompt (see backend/main.py -> /chat).
+   the backend on every message, which forwards it + history to the Gemini
+   API as the system instruction (see backend/main.py -> /chat).
 
    Keep this in sync with the real content on the site: every number below
    comes straight from CASE_DATA in index.html, so if you update a case
