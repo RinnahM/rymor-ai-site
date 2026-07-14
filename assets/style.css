@@ -450,10 +450,6 @@ html[data-theme="dark"] .btn-primary{ color:#14100F; }
   font-family:'IBM Plex Mono', monospace; font-size:0.75rem;
   letter-spacing:0.06em; text-transform:uppercase; color:var(--thread);
 }
-.about-credentials{
-  font-family:'Work Sans', sans-serif; font-size:0.82rem;
-  color:var(--text-soft); margin-top:6px;
-}
 .about-copy p{color:var(--text-soft); font-weight:300; margin-bottom:18px; max-width:560px;}
 
 /* ---------- CERTS (clickable cards) ---------- */
