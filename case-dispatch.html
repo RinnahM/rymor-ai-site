@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Dispatch &amp; Dynamic Routing System — Rymor AI Case Study</title>
+<meta name="description" content="A 24-node n8n pipeline that triages, ranks, and dispatches emergency HVAC & plumbing jobs in under 60 seconds, around the clock.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html#top" class="logo">RYMOR <span>AI</span></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#certifications">Certifications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="btn btn-primary nav-cta">Book a call</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="page-detail wrap">
+    <a class="back-link" href="index.html#work">◂ Back to all work</a>
+
+    <div class="detail-head">
+      <span class="case-card-tag">HVAC &amp; Plumbing — Emergency Dispatch</span>
+      <h2>AI Dispatch &amp; Dynamic Routing System</h2>
+    </div>
+
+    <!-- VIDEOS FIRST -->
+    <div class="video-section">
+      <h4 class="section-label">See it in action</h4>
+      <div class="video-grid">
+        <div class="video-slot has-video">
+          <span class="video-slot-tag">Walkthrough Video</span>
+          <video controls preload="metadata" poster="assets/AI%20Dispatch%20%26%20Routing%20System.png">
+            <source src="assets/AI%20Dispatch%20and%20Dynamic%20Routing%20System%20-%20Walkthrough%20Video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-slot has-video">
+          <span class="video-slot-tag">Live Demo</span>
+          <video controls preload="metadata" poster="assets/AI%20Dispatch%20%26%20Routing%20System.png">
+            <source src="assets/AI%20Dispatch%20%26%20Dynamic%20Routing%20System%20-%20Live%20Demo.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-media" style="margin-top:44px;">
+      <div class="detail-media-label"><span class="thread-dot"></span>System flow — 24 nodes, under 60 seconds end-to-end</div>
+      <svg viewBox="0 0 1000 220" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .ph-label{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; fill:var(--thread); text-transform:uppercase;}
+          .nd{fill:var(--card); stroke:var(--border); stroke-width:1;}
+          .nd-txt{font-family:'Work Sans',sans-serif; font-size:11px; fill:var(--text);}
+          .arrow{stroke:var(--accent-soft); stroke-width:1.4; fill:none;}
+          .dot{fill:var(--thread);}
+        </style>
+        <text x="10" y="20" class="ph-label">01 — Entry &amp; Dedup</text>
+        <text x="270" y="20" class="ph-label">02 — AI Triage &amp; Matching</text>
+        <text x="560" y="20" class="ph-label">03 — Job Creation &amp; Approval</text>
+        <text x="850" y="20" class="ph-label">04 — Finalize</text>
+        <rect x="10" y="60" width="150" height="60" rx="3" class="nd"/>
+        <text x="26" y="83" class="nd-txt">Idempotency guard:</text>
+        <text x="26" y="100" class="nd-txt">hash + Supabase check</text>
+        <rect x="270" y="60" width="180" height="60" rx="3" class="nd"/>
+        <text x="286" y="83" class="nd-txt">AI triage + Haversine</text>
+        <text x="286" y="100" class="nd-txt">proximity ranking</text>
+        <rect x="560" y="60" width="190" height="60" rx="3" class="nd"/>
+        <text x="576" y="83" class="nd-txt">Draft job in Jobber,</text>
+        <text x="576" y="100" class="nd-txt">Slack approval sent</text>
+        <rect x="850" y="60" width="140" height="60" rx="3" class="nd"/>
+        <text x="866" y="83" class="nd-txt">Confirmed in Jobber,</text>
+        <text x="866" y="100" class="nd-txt">Gmail sent to caller</text>
+        <path d="M160 90 L268 90" class="arrow" marker-end="url(#arrowD)"/>
+        <path d="M450 90 L558 90" class="arrow" marker-end="url(#arrowD)"/>
+        <path d="M750 90 L848 90" class="arrow" marker-end="url(#arrowD)"/>
+        <circle cx="85" cy="140" r="3" class="dot"/>
+        <circle cx="360" cy="140" r="3" class="dot"/>
+        <circle cx="655" cy="140" r="3" class="dot"/>
+        <circle cx="920" cy="140" r="3" class="dot"/>
+        <text x="10" y="185" class="nd-txt" fill="var(--text-soft)" font-size="11">Total pipeline: 24 nodes · Jobber CRM + Supabase + Gmail, wired via OAuth2 &amp; webhooks</text>
+        <defs>
+          <marker id="arrowD" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--accent-soft)"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="detail-text">
+      <h4>The Problem</h4>
+      <p>A 23-truck HVAC and plumbing company was losing 4–5 emergency jobs a month to slow after-hours response. Calls went to voicemail, callbacks took 20 minutes, and customers called a competitor instead. At $1,200 average per emergency ticket, that's nearly $60,000 a year lost — not to bad service, but to slow response.</p>
+      <h4>What I Built</h4>
+      <p>A 24-node autonomous pipeline that fires the moment a call ends, triggered by a webhook straight from the voice agent. An idempotency guard hashes the incoming call data and checks it against a Supabase registry, so the same request can never create two jobs. The transcript goes to an AI model that scores urgency and extracts required technician certifications, then a Haversine distance calculation ranks every available technician by real proximity, cross-checked against the Jobber CRM for availability and skill. A draft job is created directly in Jobber, a Slack alert hits the dispatcher's phone with one Approve button, and once confirmed, a Gmail confirmation goes out to the caller automatically. Under 60 seconds, around the clock.</p>
+    </div>
+
+    <h4 class="section-label" style="margin-top:28px;">The Results</h4>
+    <div class="stats-grid">
+      <div class="stat"><span class="num">&lt;60 sec</span><span class="label">Response time, down from 18 min</span></div>
+      <div class="stat"><span class="num">Zero</span><span class="label">After-hours jobs missed in 60 days</span></div>
+      <div class="stat"><span class="num">−11 min</span><span class="label">Drive time per job via live routing</span></div>
+      <div class="stat"><span class="num">$371K</span><span class="label">Est. annual revenue gain, 23 trucks</span></div>
+    </div>
+
+    <div class="stack-tags">
+      <span class="stack-tag">n8n</span>
+      <span class="stack-tag">Vapi</span>
+      <span class="stack-tag">Jobber CRM</span>
+      <span class="stack-tag">Haversine Calculation</span>
+      <span class="stack-tag">Supabase</span>
+      <span class="stack-tag">Gmail</span>
+      <span class="stack-tag">Slack</span>
+      <span class="stack-tag">OAuth2</span>
+      <span class="stack-tag">Webhooks</span>
+      <span class="stack-tag">API Integrations</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Rymor AI &middot; Rinnah Mayor</p>
+</footer>
+
+<!-- AI CHAT WIDGET -->
+<button id="chatBubble" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<div id="chatPanel">
+  <div class="chat-head">
+    <div>
+      <div class="t1">Ada &middot; Rymor AI Assistant</div>
+      <div class="t2">Usually replies in a few seconds</div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="chat-cta">Skip ahead &rarr; Book a discovery call</a>
+  <form class="chat-input-row" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Type a message…" autocomplete="off">
+    <button type="submit" id="chatSend">Send</button>
+  </form>
+</div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+"""
+FastAPI backend for the Rymor AI site (index.html).
+
+Two responsibilities:
+  1. POST /contact — validates the contact form and emails it to your inbox.
+  2. POST /chat     — proxies the floating chat widget's messages to the
+                       Claude API using the persona prompt sent from the frontend.
+
+Run locally:
+    pip install -r requirements.txt
+    uvicorn main:app --reload --port 8000
+
+Required environment variables (put these in a `.env` file, see .env.example):
+    SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, SMTP_FROM, BUSINESS_EMAIL
+    ANTHROPIC_API_KEY
+    ALLOWED_ORIGINS   (comma-separated list, e.g. http://localhost:5500,https://rymorai.com)
+"""
+
+import os
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+import httpx
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, EmailStr, Field
+
+# ── Config ──────────────────────────────────────────────────────────────
+SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
+SMTP_USERNAME = os.environ.get("SMTP_USERNAME")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
+SMTP_FROM = os.environ.get("SMTP_FROM", SMTP_USERNAME)
+BUSINESS_EMAIL = os.environ.get("BUSINESS_EMAIL", "mayorrinnah09@gmail.com")
+
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+ANTHROPIC_MODEL = "claude-sonnet-5"
+
+ALLOWED_ORIGINS = os.environ.get(
+    "ALLOWED_ORIGINS", "http://localhost:5500,http://127.0.0.1:5500"
+).split(",")
+
+app = FastAPI(title="Rymor AI Backend")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_methods=["POST"],
+    allow_headers=["Content-Type"],
+)
+
+
+# ── Schemas ─────────────────────────────────────────────────────────────
+class ContactForm(BaseModel):
+    name: str = Field(min_length=1, max_length=200)
+    email: EmailStr
+    company: str | None = Field(default=None, max_length=200)
+    message: str = Field(min_length=1, max_length=5000)
+
+
+class ChatTurn(BaseModel):
+    role: str  # "user" | "assistant"
+    content: str
+
+
+class ChatRequest(BaseModel):
+    persona: str  # CHAT_PERSONA_PROMPT from index.html
+    messages: list[ChatTurn]
+
+
+class ChatResponse(BaseModel):
+    reply: str
+
+
+# ── Routes ──────────────────────────────────────────────────────────────
+@app.post("/contact")
+def submit_contact_form(form: ContactForm):
+    """Receives the contact form and forwards it to BUSINESS_EMAIL via SMTP."""
+    if not (SMTP_USERNAME and SMTP_PASSWORD and BUSINESS_EMAIL):
+        raise HTTPException(
+            status_code=500,
+            detail="Email is not configured on the server yet.",
+        )
+
+    body_lines = [
+        f"Name: {form.name}",
+        f"Email: {form.email}",
+        f"Company: {form.company or '—'}",
+        "",
+        "What they want automated:",
+        form.message,
+    ]
+
+    msg = MIMEMultipart()
+    msg["Subject"] = f"New inquiry from {form.name} (Rymor AI site)"
+    msg["From"] = SMTP_FROM
+    msg["To"] = BUSINESS_EMAIL
+    msg["Reply-To"] = form.email
+    msg.attach(MIMEText("\n".join(body_lines), "plain"))
+
+    try:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USERNAME, SMTP_PASSWORD)
+            server.sendmail(SMTP_FROM, [BUSINESS_EMAIL], msg.as_string())
+    except smtplib.SMTPException as exc:
+        raise HTTPException(status_code=502, detail="Could not send the message right now.") from exc
+
+    return {"status": "sent"}
+
+
+@app.post("/chat", response_model=ChatResponse)
+async def chat(payload: ChatRequest):
+    """
+    Proxies the widget's conversation to the Claude API, using the persona
+    prompt the frontend sent as the system prompt. Keeping the API key here
+    (server-side) instead of in the frontend is what makes this safe to ship.
+    """
+    if not ANTHROPIC_API_KEY:
+        raise HTTPException(status_code=500, detail="Chat is not configured on the server yet.")
+
+    async with httpx.AsyncClient(timeout=20.0) as client:
+        response = await client.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": ANTHROPIC_MODEL,
+                "max_tokens": 300,
+                "system": payload.persona,
+                "messages": [{"role": t.role, "content": t.content} for t in payload.messages],
+            },
+        )
+
+    if response.status_code != 200:
+        raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
+
+    data = response.json()
+    reply_text = "".join(block.get("text", "") for block in data.get("content", []))
+    return ChatResponse(reply=reply_text or "Could you say a bit more about that?")
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}

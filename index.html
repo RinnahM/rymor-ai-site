@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rymor AI — Rinnah Mayor, AI Automation Engineer</title>
+<meta name="description" content="Rymor AI builds autonomous systems for service businesses — dispatch, knowledge retrieval, and content — so teams stop doing busywork and buy back their time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- Custom cursor (disabled automatically on touch devices / prefers-reduced-motion via JS) -->
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="logo">RYMOR <span>AI</span></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="btn btn-primary nav-cta">Book a call</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="eyebrow">AI Automation &amp; Systems Engineer</div>
+    <h1>Systems that <em>buy back your time.</em></h1>
+    <p class="lede">Rymor AI builds autonomous automation for service businesses — dispatch that never sleeps, knowledge that answers itself, content that ships on its own. Less busywork. Fewer missed leads. More time on the business that pays you.</p>
+    <div class="hero-ctas">
+      <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="btn btn-primary">Book a discovery call</a>
+      <a href="#work" class="btn btn-ghost">See the work</a>
+    </div>
+  </section>
+
+  <div class="marquee-band">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section wrap" id="services">
+    <div class="section-head reveal">
+      <div class="eyebrow">Practice</div>
+      <h2>Four disciplines. <em>One outcome.</em></h2>
+      <p>Every engagement is delivered as a single, senior-led build — no account managers, no juniors, no ceremonies.</p>
+    </div>
+    <div class="service-grid" id="serviceGrid"></div>
+  </section>
+
+  <!-- WORK / CASE STUDIES -->
+  <section class="section wrap" id="work">
+    <div class="section-head reveal">
+      <div class="eyebrow">Selected Work</div>
+      <h2>Systems, sorted by platform</h2>
+      <p>Filter by the tool each system is built on. Click a card to open the full case study — breakdown, walkthrough, and live demo — on its own page.</p>
+    </div>
+
+    <div class="filter-bar reveal" id="filterBar"></div>
+    <div class="case-grid" id="caseGrid"></div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="wrap reveal">
+      <div class="eyebrow" style="justify-content:center;">In Their Words</div>
+      <div class="testi-quote-icon">&ldquo;&rdquo;</div>
+      <div class="testi-slide" id="testiSlide"></div>
+      <div class="testi-nav">
+        <button class="testi-arrow" id="testiPrev" aria-label="Previous testimonial">&#8249;</button>
+        <div class="testi-dots" id="testiDots"></div>
+        <button class="testi-arrow" id="testiNext" aria-label="Next testimonial">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section wrap" id="about">
+    <div class="about-grid reveal">
+      <div>
+        <div class="about-photo">
+          <img src="assets/rinnah-mayor.png" alt="Rinnah Mayor, Founder of Rymor AI">
+        </div>
+        <div class="about-name">Rinnah Mayor</div>
+        <div class="about-role">AI Automation &amp; Systems Engineer</div>
+        <div class="about-credentials">B.S. Computer Science — Your University Name</div>
+      </div>
+      <div class="about-copy">
+        <div class="eyebrow">About</div>
+        <p>I'm an AI automation engineer who builds systems for service businesses — the kind that answer the phone at 2am, remember every past job, and publish content without anyone touching a keyboard.</p>
+        <p>My work sits at the intersection of workflow orchestration and applied AI: n8n, GoHighLevel, Zapier, and Make for the plumbing, Claude and Gemini for the reasoning, and a close read of exactly where a business is bleeding time or money. The goal is never "add more AI" — it's fewer missed leads, faster response, and hours back on the calendar every week.</p>
+        <p>I work with service businesses who are ready to stop running on manual processes and start running on systems that work while they don't.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section wrap" id="certifications">
+    <div class="section-head reveal">
+      <div class="eyebrow">Certifications</div>
+      <h2>Grounded in the fundamentals</h2>
+      <p>Click a certificate to see the credential and verify it with the issuing platform.</p>
+    </div>
+    <div class="cert-grid reveal" id="certGrid"></div>
+  </section>
+
+</main>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-head reveal">
+      <div class="eyebrow" style="justify-content:center;">Let's talk</div>
+      <h2>Ready to buy back your time?</h2>
+      <p>Book a free discovery call and we'll map out exactly where automation saves you the most hours — and the most missed revenue.</p>
+      <div class="contact-ctas">
+        <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="btn btn-primary">Book a discovery call</a>
+        <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=mayorrinnah09@gmail.com&amp;su=Discovery%20call%20inquiry" target="_blank" rel="noopener" class="btn btn-ghost">Email me</a>
+      </div>
+    </div>
+
+    <!-- Contact form — posts to the FastAPI backend in backend/main.py.
+         See API_BASE_URL near the bottom of the script for where to point it. -->
+    <div class="contact-form-wrap reveal">
+      <form id="contactForm">
+        <div class="field">
+          <label>Name <span class="req">*</span></label>
+          <input type="text" name="name" required>
+        </div>
+        <div class="field">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="field">
+          <label>Company</label>
+          <input type="text" name="company">
+        </div>
+        <div class="field">
+          <label>What should we automate? <span class="req">*</span></label>
+          <textarea name="message" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="contactSubmit" style="width:100%; justify-content:center;">Send inquiry</button>
+        <div id="formStatus" class="form-status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Rymor AI &middot; Rinnah Mayor</p>
+</footer>
+
+<!-- AI CHAT WIDGET -->
+<button id="chatBubble" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<div id="chatPanel">
+  <div class="chat-head">
+    <div>
+      <div class="t1">Ada &middot; Rymor AI Assistant</div>
+      <div class="t2">Usually replies in a few seconds</div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="chat-cta">Skip ahead &rarr; Book a discovery call</a>
+  <form class="chat-input-row" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Type a message…" autocomplete="off">
+    <button type="submit" id="chatSend">Send</button>
+  </form>
+</div>
+
+<script>
+/* =========================================================================
+   SERVICES DATA
+   ========================================================================= */
+const SERVICES_DATA = [
+  {
+    title:'Workflow Architecture',
+    icon:'<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.2 6h7.6M17 8.5 8 15.5"/></svg>',
+    description:'End-to-end design of automated systems that replace manual ops — dispatch, intake, fulfillment.'
+  },
+  {
+    title:'AI Agents &amp; Knowledge Systems',
+    icon:'<svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 12h.01M15 12h.01M8 4v3M16 4v3"/></svg>',
+    description:'RAG pipelines and reasoning agents wired into your stack — retrieval, memory, and grounded answers.'
+  },
+  {
+    title:'Platform Engineering',
+    icon:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>',
+    description:'Production-grade builds in n8n, GoHighLevel, Zapier and Make — versioned, monitored, documented.'
+  },
+  {
+    title:'Ops Intelligence',
+    icon:'<svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l3-4 3 3 4-6"/></svg>',
+    description:'Dashboards and audit trails so every automated hour and dollar saved is measurable, not anecdotal.'
+  }
+];
+
+function renderServices(){
+  const grid = document.getElementById('serviceGrid');
+  grid.innerHTML = SERVICES_DATA.map(s => `
+    <div class="service-card">
+      <div class="service-icon">${s.icon}</div>
+      <h3>${s.title}</h3>
+      <p>${s.description}</p>
+    </div>
+  `).join('');
+  requestAnimationFrame(() => {
+    grid.querySelectorAll('.service-card').forEach((card,i) => {
+      setTimeout(() => card.classList.add('visible'), i*80);
+    });
+  });
+}
+
+/* =========================================================================
+   TESTIMONIALS DATA
+   Placeholder quotes — swap in real client feedback as you collect it.
+   ========================================================================= */
+const TESTIMONIALS_DATA = [
+  {
+    quote:'The dispatch system paid for itself in the first missed call it caught. We stopped losing after-hours jobs to competitors.',
+    name:'Placeholder — HVAC &amp; Plumbing Client',
+    role:'Operations Manager'
+  },
+  {
+    quote:'Our team stopped digging through old emails for answers. The knowledge system just knows — instantly, and correctly.',
+    name:'Placeholder — Apex Home Repair',
+    role:'Owner'
+  },
+  {
+    quote:'A week of content now takes ten minutes. Rinnah built something that actually runs itself, not just automates a step.',
+    name:'Placeholder — Content Client',
+    role:'Marketing Lead'
+  }
+];
+
+let testiIndex = 0;
+function renderTestimonial(){
+  const t = TESTIMONIALS_DATA[testiIndex];
+  document.getElementById('testiSlide').innerHTML = `
+    <blockquote>&ldquo;${t.quote}&rdquo;</blockquote>
+    <div class="testi-name">${t.name} — ${t.role}</div>
+  `;
+  document.getElementById('testiDots').innerHTML = TESTIMONIALS_DATA.map((_,i) => `
+    <button class="testi-dot${i===testiIndex?' active':''}" data-i="${i}" aria-label="Go to testimonial ${i+1}"></button>
+  `).join('');
+  document.querySelectorAll('.testi-dot').forEach(dot => {
+    dot.addEventListener('click', () => { testiIndex = parseInt(dot.dataset.i); renderTestimonial(); });
+  });
+}
+function testiGo(delta){
+  testiIndex = (testiIndex + delta + TESTIMONIALS_DATA.length) % TESTIMONIALS_DATA.length;
+  renderTestimonial();
+}
+
+/* =========================================================================
+   CASE STUDY DATA (card summaries only)
+   The full breakdown, videos, and stats for each case study now live on
+   their own page (case-<id>.html) — see those files to edit that content.
+   To add a GoHighLevel / Zapier / Make.com case study later, push a new
+   object here with platform set to 'ghl' | 'zapier' | 'make', build a
+   matching case-<id>.html from one of the existing ones as a template.
+   ========================================================================= */
+const PLATFORMS = [
+  { id:'all',   label:'All' },
+  { id:'n8n',   label:'n8n' },
+  { id:'ghl',   label:'GoHighLevel' },
+  { id:'zapier',label:'Zapier' },
+  { id:'make',  label:'Make.com' }
+];
+
+const CASE_DATA = [
+  {
+    id:'dispatch',
+    platform:'n8n',
+    tag:'HVAC &amp; Plumbing — Emergency Dispatch',
+    title:'AI Dispatch &amp; Dynamic Routing System',
+    blurb:'A 24-node pipeline that triages, ranks, and dispatches emergency jobs in under 60 seconds, around the clock.',
+    image:'assets/AI%20Dispatch%20%26%20Routing%20System.png',
+    page:'case-dispatch.html'
+  },
+  {
+    id:'apex',
+    platform:'n8n',
+    tag:'Home Repair — Internal Knowledge System',
+    title:'Apex Home Repair Knowledge Hub',
+    blurb:'A RAG pipeline that turns scattered manuals and project history into an instant, grounded answer for any employee.',
+    image:'assets/Apex%20Home%20Repair%20-%20Agentic%20RAG.png',
+    page:'case-apex.html'
+  },
+  {
+    id:'content-engine',
+    platform:'n8n',
+    tag:'Content Creators &amp; Marketing Teams — Video Production',
+    title:'AI Automated Content Engine',
+    blurb:'A scheduled pipeline that writes, renders, quality-checks, and auto-publishes short-form video with zero manual steps.',
+    image:'assets/AI%20Automated%20Content%20Engine.png',
+    page:'case-content-engine.html'
+  }
+];
+
+/* =========================================================================
+   CERTIFICATION DATA (card summaries only)
+   Each card opens its own page (see "page" below) showing the certificate
+   image and a verify link. Add the image file to assets/ with the exact
+   filename referenced on that page, and put the real verification URL on
+   that page too.
+   ========================================================================= */
+const CERT_DATA = [
+  { name:'Introduction to Workflow Automation with n8n', page:'cert-n8n.html' },
+  { name:'Introduction to AI Agents', page:'cert-ai-agents.html' },
+  { name:'Understanding Prompt Engineering', page:'cert-prompt-engineering.html' },
+  { name:'Claude 101', page:'cert-claude-101.html' }
+];
+
+/* -------------------------------------------------------------------------
+   RENDER: filter bar
+------------------------------------------------------------------------- */
+let activePlatform = 'all';
+
+function countFor(platformId){
+  if(platformId === 'all') return CASE_DATA.length;
+  return CASE_DATA.filter(c => c.platform === platformId).length;
+}
+
+function renderFilterBar(){
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = PLATFORMS.map(p => `
+    <button class="filter-btn${p.id === activePlatform ? ' active' : ''}" data-platform="${p.id}">
+      ${p.label} <span class="count">${countFor(p.id)}</span>
+    </button>
+  `).join('');
+  bar.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activePlatform = btn.dataset.platform;
+      renderFilterBar();
+      renderCaseGrid();
+    });
+  });
+}
+
+/* -------------------------------------------------------------------------
+   RENDER: case card grid
+------------------------------------------------------------------------- */
+function renderCaseGrid(){
+  const grid = document.getElementById('caseGrid');
+  const filtered = activePlatform === 'all'
+    ? CASE_DATA
+    : CASE_DATA.filter(c => c.platform === activePlatform);
+
+  if(filtered.length === 0){
+    const platformLabel = PLATFORMS.find(p => p.id === activePlatform)?.label || activePlatform;
+    grid.innerHTML = `
+      <div class="case-empty">
+        <div class="eyebrow">Coming soon</div>
+        <h3>No ${platformLabel} case studies yet</h3>
+        <p>This platform's builds are in progress — check back soon, or pick another filter above.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(c => `
+    <a class="case-card" href="${c.page}">
+      <div class="case-card-media has-image">
+        <img src="${c.image}" alt="${c.title} — workflow diagram" loading="lazy">
+      </div>
+      <div class="case-card-body">
+        <span class="case-card-tag">${c.tag}</span>
+        <h3>${c.title}</h3>
+        <p>${c.blurb}</p>
+        <span class="case-card-cta">▸ View full case study</span>
+      </div>
+    </a>
+  `).join('');
+
+  requestAnimationFrame(() => {
+    grid.querySelectorAll('.case-card').forEach((card, i) => {
+      setTimeout(() => card.classList.add('visible'), i * 70);
+    });
+  });
+}
+
+/* -------------------------------------------------------------------------
+   RENDER: certifications
+------------------------------------------------------------------------- */
+function renderCerts(){
+  const grid = document.getElementById('certGrid');
+  grid.innerHTML = CERT_DATA.map(cert => `
+    <a class="cert-card" href="${cert.page}">
+      <div class="cert-thumb">${cert.name.charAt(0)}</div>
+      <div class="cert-info">
+        <div class="cert-name">${cert.name}</div>
+        <span class="cert-verify">▸ View certificate</span>
+      </div>
+    </a>
+  `).join('');
+}
+
+/* -------------------------------------------------------------------------
+   INIT
+------------------------------------------------------------------------- */
+renderServices();
+renderTestimonial();
+document.getElementById('testiPrev').addEventListener('click', () => testiGo(-1));
+document.getElementById('testiNext').addEventListener('click', () => testiGo(1));
+renderFilterBar();
+renderCaseGrid();
+renderCerts();
+</script>
+
+<!-- Shared theme toggle, marquee, scroll reveal, custom cursor, contact
+     form, and AI chat widget — see assets/site.js (loaded on every page). -->
+<script src="assets/site.js"></script>
+
+</body>
+</html>

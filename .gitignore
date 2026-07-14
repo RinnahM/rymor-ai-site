@@ -1,0 +1,14 @@
+# Backend secrets & local env
+backend/.env
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Case study videos — too large for git (two exceed GitHub's 100MB hard
+# limit). Host these on YouTube/Vimeo (unlisted) or a video CDN instead,
+# and point the <source> tags in case-*.html at that URL.
+assets/*.mp4
+
+# OS cruft
+.DS_Store
+Thumbs.db
