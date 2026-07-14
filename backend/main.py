@@ -32,7 +32,7 @@ BUSINESS_EMAIL = os.environ.get("BUSINESS_EMAIL", "mayorrinnah09@gmail.com")
 
 # Free tier (no billing required) — see https://ai.google.dev/gemini-api/docs/pricing
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3.5-flash"
 
 ALLOWED_ORIGINS = os.environ.get(
     "ALLOWED_ORIGINS", "http://localhost:5500,http://127.0.0.1:5500"
@@ -144,12 +144,7 @@ async def chat(payload: ChatRequest):
         )
 
     if response.status_code != 200:
-        # TEMPORARY: surfaces Gemini's actual error while we debug the deploy.
-        # Revert to a generic message once /chat is confirmed working.
-        raise HTTPException(
-            status_code=502,
-            detail=f"Chat is temporarily unavailable. Upstream {response.status_code}: {response.text[:300]}",
-        )
+        raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
 
     data = response.json()
     candidates = data.get("candidates") or []
