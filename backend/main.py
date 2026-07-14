@@ -144,7 +144,12 @@ async def chat(payload: ChatRequest):
         )
 
     if response.status_code != 200:
-        raise HTTPException(status_code=502, detail="Chat is temporarily unavailable.")
+        # TEMPORARY: surfaces Gemini's actual error while we debug the deploy.
+        # Revert to a generic message once /chat is confirmed working.
+        raise HTTPException(
+            status_code=502,
+            detail=f"Chat is temporarily unavailable. Upstream {response.status_code}: {response.text[:300]}",
+        )
 
     data = response.json()
     candidates = data.get("candidates") or []
