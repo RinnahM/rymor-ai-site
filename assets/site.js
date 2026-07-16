@@ -225,6 +225,41 @@ CASE STUDIES (real, shipped work)
    platforms auto-published per run, fully unattended, with built-in
    quality filtering before publish. Stack: n8n, Google Gemini, video
    generation API, Meta Graph API, YouTube Data API, OAuth2, webhooks.
+4. High-Ticket Cart Abandonment Savior — a GoHighLevel workflow for
+   high-ticket checkout funnels. Problem: up to 70% of high-intent buyers
+   dropped off mid-checkout with no way to follow up. Built: a 20-second
+   delay after an incomplete order form, then an automatic SMS linking the
+   buyer back to their live checkout, plus an instant internal alert to
+   sales. Results: ~18% estimated recovery rate on abandoned high-ticket
+   carts, instant sales alerts, zero manual monitoring needed. Stack:
+   GoHighLevel, workflow automation, SMS automation, contact tagging.
+5. AI Agent: Social Media Comment Responder — for a YouTube content team
+   (Rins Media). Problem: growing comment volume buried urgent complaints
+   and refund requests among routine questions, with a 2-person team
+   unable to keep up. Built: a Make.com AI Agent that reads new comments
+   against video metadata in Airtable, replies automatically to routine
+   questions, and escalates anything resembling a complaint to Slack
+   instead of auto-replying. Results: 92% of comments answered within an
+   hour (up from ~20%), 5 hours/week saved on triage, escalations rarely
+   missed. Stack: Make.com, AI Agent, YouTube API, Airtable, Slack.
+6. AI Agent: Sales Outreach & Meeting Booking — for a boutique B2B SaaS
+   (FlowState CRM). Problem: the founder spent 3+ hours/day manually
+   researching inbound leads, checking calendar availability, and drafting
+   replies. Built: a Make.com AI Agent that researches each inbound
+   prospect via web search, checks Google Calendar availability, and
+   drafts a personalized Gmail reply with proposed meeting times. Results:
+   lead response time down to 12 minutes (from ~4.5 hours), manual admin
+   time down to 1 hour/week (from 15), meeting booking rate up 77%. Stack:
+   Make.com, AI Agent, Gmail, AI web search, Google Calendar, Slack.
+7. AI Agent for Inventory & Order Management — a Slack-native inventory
+   assistant (Rins Retail Co., "StockFlow AI"). Problem: warehouse staff
+   needed to check/update stock from the floor without a spreadsheet, with
+   zero room for mixing up a lookup and an update. Built: a Make.com AI
+   Agent that interprets plain-language Slack messages and decides whether
+   to search, update, or add an inventory row in Google Sheets, confirming
+   every change in the same thread. Results: stock checks/updates under 15
+   seconds (from 2-3 minutes), ~90% handled fully mobile via Slack, rare
+   discrepancies. Stack: Make.com, AI Agent, Slack, Google Sheets.
 
 CERTIFICATIONS
 Introduction to Workflow Automation with n8n; Introduction to AI Agents;

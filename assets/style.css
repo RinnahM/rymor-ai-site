@@ -344,6 +344,7 @@ html[data-theme="dark"] .btn-primary{ color:#14100F; }
   display:flex; align-items:center; gap:8px;
 }
 .detail-media svg{display:block; min-width:640px; width:100%; height:auto;}
+.detail-media img{display:block; width:100%; height:auto; border-radius:3px;}
 .detail-text h4{
   font-family:'IBM Plex Mono', monospace; font-size:0.7rem;
   letter-spacing:0.1em; text-transform:uppercase;
