@@ -194,7 +194,7 @@ html[data-theme="dark"] .btn-primary{ color:#14100F; }
 /* ---------- SECTION HEADERS ---------- */
 .section{padding-top:120px; padding-bottom:120px;}
 /* standalone pages (case-*.html, cert-*.html) sit directly under the fixed nav */
-.page-detail{padding:160px 0 120px;}
+.page-detail{padding-top:160px; padding-bottom:120px;}
 .section-label{
   font-family:'IBM Plex Mono', monospace; font-size:0.7rem;
   letter-spacing:0.1em; text-transform:uppercase;
