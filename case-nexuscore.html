@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusCore — Rymor AI Case Study</title>
+<meta name="description" content="An internal ops platform where the AI doesn't just answer policy questions — it drafts the request, coaches the new hire, and checks the document. Live, working demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html#top" class="logo">RYMOR <span>AI</span></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#certifications">Certifications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="btn btn-primary nav-cta">Book a call</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="page-detail wrap">
+    <a class="back-link" href="index.html#work">◂ Back to all work</a>
+
+    <div class="detail-head">
+      <span class="case-card-tag">Full-Stack AI Engineering — Agentic Internal Ops Platform</span>
+      <h2>NexusCore</h2>
+    </div>
+
+    <!-- LIVE, USABLE DEMO — front and center, not a video -->
+    <div class="live-demo-callout">
+      <img class="live-demo-shot" src="assets/NexusCore.png" alt="NexusCore AI assistant — system log trace, grounded answer with citations, and a drafted equipment request card">
+      <div class="live-demo-body">
+        <div class="live-demo-text">
+          <h4>This one you can actually use</h4>
+          <p>Click "Try the Demo" — no signup — and ask the assistant something like "How do I request a new laptop?" Watch it search the handbook, answer with citations, and draft the request itself.</p>
+        </div>
+        <div class="live-demo-ctas">
+          <a href="https://nexuscore-lovat.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Launch Live Demo ▸</a>
+          <a href="https://github.com/RinnahM/nexuscore" target="_blank" rel="noopener" class="btn btn-ghost">View Source on GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-text">
+      <h4>The Problem</h4>
+      <p>Most internal "AI ops" portfolio projects are a CRUD app with a chatbot bolted on — a nice UI wrapped around a single API call. That proves you can call an API. It doesn't prove you can build a system where retrieval-augmented generation is the foundation for actual agentic behavior: an assistant that decides what to do next, not just what to say, with every decision observable rather than hidden in a black box.</p>
+      <h4>What I Built</h4>
+      <p>An internal operations platform with four concrete agentic features built on the same RAG core. The <strong>Policy-to-Action agent</strong> doesn't just answer "how do I request a laptop?" — a single structured-output call to Gemini both answers the question grounded in the actual handbook (retrieved via <code>pgvector</code> cosine-similarity search in Postgres) and decides whether the question implies a request, drafting a pre-filled, editable card if so. The <strong>Shadow Onboarding buddy</strong> gives new hires inline "why this matters" and "help me start" actions on every pending task instead of a static checklist. The <strong>Compliance Auditor</strong> takes an uploaded photo of an ID or certification and runs it through Gemini's multimodal vision to verify document type and flag expired dates before HR looks at it. And the <strong>System Log</strong> streams a real, per-request trace of what the agent actually executed server-side — not a decorative loading animation, an honest record, durably persisted for an admin-facing audit view.</p>
+      <h4>Engineering Decisions Worth Calling Out</h4>
+      <p>The intent-detection for the Policy-to-Action agent is folded into the same Gemini call that generates the answer, using a JSON response schema to force structured output — instead of a naive "answer, then classify" two-call pipeline. That halves the latency and API usage per question, which matters directly on a free tier with rate limits. Every table's access rules live in Postgres row-level security policies rather than scattered across route handlers, so an admin-only mutation stays unreachable even if a server action forgets to check the role — the database enforces it either way, not the application layer alone.</p>
+    </div>
+
+    <h4 class="section-label" style="margin-top:28px;">The Results</h4>
+    <div class="stats-grid">
+      <div class="stat"><span class="num">$0/mo</span><span class="label">Hosting — Vercel, Supabase, and Gemini all on free tiers</span></div>
+      <div class="stat"><span class="num">1 call</span><span class="label">Single Gemini call both answers and detects actionable intent</span></div>
+      <div class="stat"><span class="num">4</span><span class="label">Agentic features sharing one RAG core, not four bolted-on demos</span></div>
+      <div class="stat"><span class="num">Live</span><span class="label">Fully working demo — no signup needed, try it yourself</span></div>
+    </div>
+
+    <div class="stack-tags">
+      <span class="stack-tag">Next.js 16</span>
+      <span class="stack-tag">TypeScript</span>
+      <span class="stack-tag">Supabase</span>
+      <span class="stack-tag">PostgreSQL</span>
+      <span class="stack-tag">pgvector</span>
+      <span class="stack-tag">Google Gemini</span>
+      <span class="stack-tag">Row-Level Security</span>
+      <span class="stack-tag">Server Actions</span>
+      <span class="stack-tag">RAG</span>
+      <span class="stack-tag">Multimodal Vision</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Rymor AI &middot; Rinnah Mayor</p>
+</footer>
+
+<!-- AI CHAT WIDGET -->
+<button id="chatBubble" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<div id="chatPanel">
+  <div class="chat-head">
+    <div>
+      <div class="t1">Ada &middot; Rymor AI Assistant</div>
+      <div class="t2">Usually replies in a few seconds</div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="chat-cta">Skip ahead &rarr; Book a discovery call</a>
+  <form class="chat-input-row" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Type a message…" autocomplete="off">
+    <button type="submit" id="chatSend">Send</button>
+  </form>
+</div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -268,6 +268,21 @@ CASE STUDIES (real, shipped work)
    transformers.js embeddings, Postgres (Neon) for storage. Live demo:
    documind-ai-silk.vercel.app. Stack: Next.js, TypeScript, Tailwind CSS,
    Prisma, PostgreSQL, transformers.js, Groq, Ollama, RAG.
+9. NexusCore — a full-stack, hand-coded agentic internal ops platform, also
+   a genuinely live, usable demo. Problem: most "AI ops" portfolio projects
+   are a CRUD app with a chatbot bolted on, proving API-calling skill but
+   not agentic system design. Built: four features on one RAG core — a
+   Policy-to-Action agent that answers handbook questions AND drafts a
+   pre-filled request in a single structured-output Gemini call when the
+   question implies one; a Shadow Onboarding buddy giving new hires inline
+   "why this matters" / "help me start" actions; a Compliance Auditor using
+   Gemini's multimodal vision to verify uploaded ID/certification photos
+   and flag expired dates; and a System Log streaming a real (not
+   decorative) per-request trace of what the agent executed. Runs entirely
+   free — Supabase (Postgres + pgvector + Auth + Storage) and Google Gemini
+   (gemini-2.0-flash + text-embedding-004), both free tier. Live demo (try
+   it, no signup): nexuscore-lovat.vercel.app. Stack: Next.js 16, TypeScript,
+   Supabase, PostgreSQL, pgvector, Google Gemini, Row-Level Security, RAG.
 
 CERTIFICATIONS
 Introduction to Workflow Automation with n8n; Introduction to AI Agents;
