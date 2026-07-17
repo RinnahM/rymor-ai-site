@@ -260,6 +260,14 @@ CASE STUDIES (real, shipped work)
    every change in the same thread. Results: stock checks/updates under 15
    seconds (from 2-3 minutes), ~90% handled fully mobile via Slack, rare
    discrepancies. Stack: Make.com, AI Agent, Slack, Google Sheets.
+8. DocuChat AI — a full-stack, hand-coded (not no-code) retrieval-augmented
+   generation app, and a genuinely live, usable demo (not just a write-up):
+   upload a document, ask a question, get an answer grounded in and citing
+   that document. Runs entirely on free infrastructure — local Ollama or
+   free-tier Groq for the LLM depending on environment, in-process
+   transformers.js embeddings, Postgres (Neon) for storage. Live demo:
+   documind-ai-silk.vercel.app. Stack: Next.js, TypeScript, Tailwind CSS,
+   Prisma, PostgreSQL, transformers.js, Groq, Ollama, RAG.
 
 CERTIFICATIONS
 Introduction to Workflow Automation with n8n; Introduction to AI Agents;

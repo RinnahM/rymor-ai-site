@@ -382,6 +382,27 @@ html[data-theme="dark"] .btn-primary{ color:#14100F; }
   color:var(--text-soft);
 }
 
+/* live, usable demo callout (for coded projects, not no-code platform builds) */
+.live-demo-callout{
+  border:1px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+  margin-bottom:40px;
+}
+.live-demo-shot{display:block; width:100%; height:auto; border-bottom:1px solid var(--border-soft);}
+.live-demo-body{
+  padding:24px 28px;
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px;
+  background:var(--card);
+}
+.live-demo-text{flex:1; min-width:220px;}
+.live-demo-text h4{
+  font-family:'IBM Plex Mono', monospace; font-size:0.7rem;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--thread); margin-bottom:6px;
+}
+.live-demo-text p{color:var(--text-soft); font-size:0.92rem; font-weight:300;}
+.live-demo-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+
 /* video slots inside detail pages */
 .video-section{margin-top:0;}
 .video-grid{

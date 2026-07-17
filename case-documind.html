@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DocuChat AI — Rymor AI Case Study</title>
+<meta name="description" content="A full-stack retrieval-augmented generation app: upload a document, chat with an AI that answers only from it, with cited sources. Live, working demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html#top" class="logo">RYMOR <span>AI</span></a>
+    <div class="nav-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#certifications">Certifications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" style="display:none;"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="btn btn-primary nav-cta">Book a call</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="page-detail wrap">
+    <a class="back-link" href="index.html#work">◂ Back to all work</a>
+
+    <div class="detail-head">
+      <span class="case-card-tag">Full-Stack AI Engineering — Retrieval-Augmented Chat</span>
+      <h2>DocuChat AI</h2>
+    </div>
+
+    <!-- LIVE, USABLE DEMO — front and center, not a video -->
+    <div class="live-demo-callout">
+      <img class="live-demo-shot" src="assets/DocuChat%20AI.png" alt="DocuChat AI live app — upload panel, document list, and chat interface">
+      <div class="live-demo-body">
+        <div class="live-demo-text">
+          <h4>This one you can actually use</h4>
+          <p>Upload a real document and ask it questions — the answers are generated live, grounded in and citing your file, not a canned demo.</p>
+        </div>
+        <div class="live-demo-ctas">
+          <a href="https://documind-ai-silk.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Launch Live Demo ▸</a>
+          <a href="https://github.com/RinnahM/documind-ai" target="_blank" rel="noopener" class="btn btn-ghost">View Source on GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-text">
+      <h4>The Problem</h4>
+      <p>Most "AI chat app" portfolio projects are a thin frontend calling someone else's API — that proves you can call an API, not that you understand what happens between a user's question and a grounded answer. I set out to build one that shows the whole path: chunking, embeddings, similarity search, prompt construction, streaming, and the infrastructure tradeoffs of actually shipping it — not just the chat bubble UI.</p>
+      <h4>What I Built</h4>
+      <p>A retrieval-augmented generation (RAG) app: upload a document, ask a question, get an answer grounded in — and citing — your own content. It runs local-first: the original version used Ollama for the LLM, transformers.js for embeddings, and ran fully offline with zero API keys and zero cost. To put it behind a public URL, the LLM call is abstracted behind a single interface that picks Groq's free hosted inference when a key is present and falls back to local Ollama otherwise — same prompt construction, same streaming interface, different backend depending on where it runs. Storage standardized on Postgres (via a free Neon database) everywhere, since a serverless host's filesystem is ephemeral between invocations and SQLite doesn't survive that. At this scale, chunk embeddings are stored in Postgres and scored with in-memory cosine similarity rather than reaching for a dedicated vector database — right-sized for the data volume, with the retrieval logic isolated so swapping in pgvector later is a contained change, not a rewrite.</p>
+      <h4>What Actually Broke (And How I Fixed It)</h4>
+      <p>PDF uploads failed first: Next.js's bundler was pulling a PDF-parsing dependency into the server bundle in a way that broke its internal worker-thread bootstrapping, so the route threw an unhandled exception and the client got an unreadable "Unexpected end of JSON input" instead of a real error. Fixed by marking the PDF libraries as external so Node could `require` them natively, and by wrapping the upload route in a try/catch that always returns a structured JSON error instead of crashing silently.</p>
+      <p>The second bug only showed up on the real deployment: the first live upload on Vercel came back a 500 with <code>libonnxruntime.so.1.14.0: cannot open shared object file</code>. The local embedding model depends on a native binary that Vercel's file tracer doesn't detect automatically, since it's loaded dynamically based on platform/architecture rather than a static import — locally the full <code>node_modules</code> tree is just present, so nothing catches this until the function actually ships without it. Fixed by explicitly force-including that native binary in the relevant serverless functions. Both bugs trace back to the same lesson: a bundler optimizing for the smallest possible bundle will happily strip a file a native addon needs at runtime, and it fails silently until you hit it in production.</p>
+    </div>
+
+    <h4 class="section-label" style="margin-top:28px;">The Results</h4>
+    <div class="stats-grid">
+      <div class="stat"><span class="num">$0/mo</span><span class="label">Hosting cost — every layer runs on a free tier</span></div>
+      <div class="stat"><span class="num">2</span><span class="label">Swappable LLM backends — local Ollama or hosted Groq</span></div>
+      <div class="stat"><span class="num">Cited</span><span class="label">Every answer grounded in and sourced from your own docs</span></div>
+      <div class="stat"><span class="num">Live</span><span class="label">Fully working demo — no waitlist, no mock data</span></div>
+    </div>
+
+    <div class="stack-tags">
+      <span class="stack-tag">Next.js</span>
+      <span class="stack-tag">TypeScript</span>
+      <span class="stack-tag">Tailwind CSS</span>
+      <span class="stack-tag">Prisma</span>
+      <span class="stack-tag">PostgreSQL (Neon)</span>
+      <span class="stack-tag">transformers.js</span>
+      <span class="stack-tag">Groq</span>
+      <span class="stack-tag">Ollama</span>
+      <span class="stack-tag">RAG</span>
+      <span class="stack-tag">Streaming Responses</span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Rymor AI &middot; Rinnah Mayor</p>
+</footer>
+
+<!-- AI CHAT WIDGET -->
+<button id="chatBubble" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+<div id="chatPanel">
+  <div class="chat-head">
+    <div>
+      <div class="t1">Ada &middot; Rymor AI Assistant</div>
+      <div class="t2">Usually replies in a few seconds</div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="chat-cta">Skip ahead &rarr; Book a discovery call</a>
+  <form class="chat-input-row" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Type a message…" autocomplete="off">
+    <button type="submit" id="chatSend">Send</button>
+  </form>
+</div>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
