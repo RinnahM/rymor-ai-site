@@ -217,7 +217,9 @@ html[data-theme="dark"] .btn-primary{ color:#14100F; }
   padding:36px 32px;
   opacity:0; transform:translateY(20px);
   transition:opacity .6s ease, transform .6s ease, background .25s ease;
+  position:relative;
 }
+@media(min-width:700px){ .service-card.featured{grid-column:1 / -1; border-top:2px solid var(--accent);} }
 .service-card.visible{opacity:1; transform:translateY(0);}
 .service-card:hover{background:var(--bg);}
 .service-icon{
