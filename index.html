@@ -23,7 +23,6 @@
       <a href="#services">Services</a>
       <a href="#work">Work</a>
       <a href="#about">About</a>
-      <a href="#certifications">Certifications</a>
       <a href="#contact">Contact</a>
     </div>
     <div style="display:flex; align-items:center; gap:14px;">
@@ -43,6 +42,7 @@
     <div class="eyebrow">AI Automation &amp; Systems Engineer</div>
     <h1>Systems that <em>buy back your time.</em></h1>
     <p class="lede">Rymor AI builds autonomous automation for service businesses — dispatch that never sleeps, knowledge that answers itself, content that ships on its own. Less busywork. Fewer missed leads. More time on the business that pays you.</p>
+    <p class="hero-founder-line"><strong>Founder-led.</strong> Every system on this page was scoped, built, and shipped by one person.</p>
     <div class="hero-ctas">
       <a href="https://calendly.com/rymorai/discovery-call" target="_blank" class="btn btn-primary">Book a discovery call</a>
       <a href="#work" class="btn btn-ghost">See the work</a>
@@ -68,7 +68,7 @@
     <div class="section-head reveal">
       <div class="eyebrow">Selected Work</div>
       <h2>Systems, sorted by platform</h2>
-      <p>Filter by the tool each system is built on. Click a card to open the full case study — breakdown, walkthrough, and live demo — on its own page.</p>
+      <p>Filter by the tool each system is built on. Click a card to open the full case study — breakdown, walkthrough, and live demo — on its own page. Every number below is from a real build, not a projection.</p>
     </div>
 
     <div class="filter-bar reveal" id="filterBar"></div>
@@ -88,21 +88,13 @@
       <div class="about-copy">
         <div class="eyebrow">About</div>
         <p>I'm a B.S. Computer Science graduate who made a deliberate pivot into AI automation — then kept going until I could build the entire stack myself: the no-code automations that run a business day-to-day, and the custom-coded AI products underneath them.</p>
+        <p>Rymor AI is the name for where this is headed. Today, that means one person — designing, building, and handing off every system directly.</p>
         <p>Before automation, I worked as a social media manager and virtual assistant, doing the repetitive manual work these systems now replace — so I design for where a business actually bleeds time, not just what an API can technically do. That shows up in the numbers: a 24-node dispatch pipeline that cut emergency response time from 18 minutes to under 60 seconds for a 23-truck HVAC company, an AI agent that lifted a team's one-hour response rate from 20% to 92%, and full-stack RAG and agentic AI platforms — architecture, database, retrieval pipeline, and deployment — that I designed and shipped end-to-end, not just the chat bubble on top.</p>
         <p>I write a clear SOP for every system I hand off, so no one is ever locked into needing me to understand their own operations. I work with business owners ready to stop running on manual processes, and with teams that need an engineer who can take an AI product from whiteboard to production, alone.</p>
       </div>
     </div>
   </section>
 
-  <!-- CERTIFICATIONS -->
-  <section class="section wrap" id="certifications">
-    <div class="section-head reveal">
-      <div class="eyebrow">Certifications</div>
-      <h2>Grounded in the fundamentals</h2>
-      <p>Click a certificate to see the credential and verify it with the issuing platform.</p>
-    </div>
-    <div class="cert-grid reveal" id="certGrid"></div>
-  </section>
 
 </main>
 
@@ -320,20 +312,6 @@ const CASE_DATA = [
   }
 ];
 
-/* =========================================================================
-   CERTIFICATION DATA (card summaries only)
-   Each card opens its own page (see "page" below) showing the certificate
-   image and a verify link. Add the image file to assets/ with the exact
-   filename referenced on that page, and put the real verification URL on
-   that page too.
-   ========================================================================= */
-const CERT_DATA = [
-  { name:'Introduction to Workflow Automation with n8n', page:'cert-n8n.html' },
-  { name:'Introduction to AI Agents', page:'cert-ai-agents.html' },
-  { name:'Understanding Prompt Engineering', page:'cert-prompt-engineering.html' },
-  { name:'Claude 101', page:'cert-claude-101.html' }
-];
-
 /* -------------------------------------------------------------------------
    RENDER: filter bar
 ------------------------------------------------------------------------- */
@@ -402,28 +380,11 @@ function renderCaseGrid(){
 }
 
 /* -------------------------------------------------------------------------
-   RENDER: certifications
-------------------------------------------------------------------------- */
-function renderCerts(){
-  const grid = document.getElementById('certGrid');
-  grid.innerHTML = CERT_DATA.map(cert => `
-    <a class="cert-card" href="${cert.page}">
-      <div class="cert-thumb">${cert.name.charAt(0)}</div>
-      <div class="cert-info">
-        <div class="cert-name">${cert.name}</div>
-        <span class="cert-verify">▸ View certificate</span>
-      </div>
-    </a>
-  `).join('');
-}
-
-/* -------------------------------------------------------------------------
    INIT
 ------------------------------------------------------------------------- */
 renderServices();
 renderFilterBar();
 renderCaseGrid();
-renderCerts();
 </script>
 
 <!-- Shared theme toggle, marquee, scroll reveal, custom cursor, contact

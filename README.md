@@ -48,18 +48,16 @@ Everything from your original file, plus:
   qualifies visitors and pushes them to your Calendly link once it looks like
   a fit. Talks to the FastAPI `/chat` endpoint, which proxies to Claude.
 
-Everything else — the case study filter/detail system, certifications,
-marquee, dark mode with persistence, scroll reveal — is untouched from your
-original file.
+Everything else — the case study filter system, marquee, dark mode with
+persistence, scroll reveal — is untouched from your original file.
 
 ## Where to edit things
 
 Since it's one file, all the content lives in the `<script>` block near the
 bottom of `index.html`, as plain JS objects:
 
-- `SERVICES_DATA` — the four service cards
+- `SERVICES_DATA` — the service cards
 - `CASE_DATA` — your case studies (already filled in with real content)
-- `CERT_DATA` — certifications
 - `CHAT_PERSONA_PROMPT` — what the chat widget asks and when it pushes the call
 
 No component files, no imports — change the text, save, refresh.

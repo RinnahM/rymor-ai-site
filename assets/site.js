@@ -1,6 +1,6 @@
 /* =========================================================================
    RYMOR AI — SHARED BEHAVIOR
-   Linked from every page (index.html, case-*.html, cert-*.html): theme
+   Linked from every page (index.html, case-*.html): theme
    toggle, marquee, scroll reveal, custom cursor, the chat widget, and the
    contact form handler. Every selector is guarded with an existence check
    so this same file works whether or not a given page has that element.
@@ -154,7 +154,7 @@ const API_BASE_URL = 'https://rymor-ai-site.onrender.com';
 /* =========================================================================
    AI CHAT WIDGET
    Persona prompt qualifies visitors AND answers factual questions about
-   Rinnah's background, case studies, stack and certifications — sent to
+   Rinnah's background, case studies, and stack — sent to
    the backend on every message, which forwards it + history to the Gemini
    API as the system instruction (see backend/main.py -> /chat).
 
@@ -297,10 +297,6 @@ CASE STUDIES (real, shipped work)
    (gemini-2.0-flash + text-embedding-004), both free tier. Live demo (try
    it, no signup): nexuscore-lovat.vercel.app. Stack: Next.js 16, TypeScript,
    Supabase, PostgreSQL, pgvector, Google Gemini, Row-Level Security, RAG.
-
-CERTIFICATIONS
-Introduction to Workflow Automation with n8n; Introduction to AI Agents;
-Understanding Prompt Engineering; Claude 101.
 
 BOOKING & CONTACT
 Discovery call: https://calendly.com/rymorai/discovery-call
