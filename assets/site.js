@@ -45,7 +45,7 @@
 (function initMarquee(){
   const track = document.getElementById('marqueeTrack');
   if(!track) return;
-  const stack = ['n8n','GoHighLevel','Zapier','Make.com','Claude','Gemini','Qdrant','Vapi','Slack API','JWT Auth','Meta Graph API','YouTube Data API'];
+  const stack = ['n8n','GoHighLevel','Zapier','Make.com','Next.js','TypeScript','React','Tailwind CSS','Supabase','PostgreSQL','Prisma','Claude','Gemini','Groq','Qdrant','pgvector','Vapi','Slack API','JWT Auth','Meta Graph API','YouTube Data API'];
   track.innerHTML = [...stack, ...stack].map(s => `<span class="marquee-item"><span class="thread-dot"></span>${s}</span>`).join('');
 })();
 
