@@ -180,8 +180,8 @@ builds target real operational bottlenecks rather than "add AI for AI's
 sake." Proof, not just claims: a 24-node dispatch pipeline that cut
 emergency response time from 18 minutes to under 60 seconds for a
 23-truck HVAC company, an AI agent that lifted a team's one-hour
-response rate from 20% to 92%, and full-stack RAG and agentic AI
-platforms (DocuChat AI, NexusCore) she designed and shipped end-to-end —
+response rate from 20% to 92%, and full-stack platforms (DocuChat AI,
+NexusCore, Petal) she designed and shipped end-to-end —
 architecture, database, retrieval pipeline, and deployment, not just the
 chat bubble on top. She writes a clear SOP for every system she
 delivers, so clients are never left dependent on her to understand their
@@ -206,7 +206,7 @@ RINNAH'S FIVE SERVICE DISCIPLINES
 - Full-Stack AI Product Engineering — custom-coded applications with AI
   as the foundation, not a bolt-on: RAG pipelines, agentic workflows, and
   multimodal features on cost-efficient, production-grade architecture
-  (see DocuChat AI and NexusCore below).
+  (see DocuChat AI, NexusCore, and Petal below).
 
 CASE STUDIES (real, shipped work)
 1. AI Dispatch & Dynamic Routing System — for a 23-truck HVAC & plumbing
@@ -297,6 +297,26 @@ CASE STUDIES (real, shipped work)
    (gemini-2.0-flash + text-embedding-004), both free tier. Live demo (try
    it, no signup): nexuscore-lovat.vercel.app. Stack: Next.js 16, TypeScript,
    Supabase, PostgreSQL, pgvector, Google Gemini, Row-Level Security, RAG.
+10. Petal — a full-stack, hand-coded, local-first personal finance app on
+    Expo (React Native + TypeScript). Problem: budgeting apps track
+    categories as labels, computing net worth separately from the
+    transaction log — a split that lets numbers silently drift from
+    reality. Built: real double-entry bookkeeping, where every category is
+    backed by a hidden ledger account and every transaction is a debit/
+    credit posting, so net worth and the P&L report fall directly out of
+    the ledger arithmetic instead of being separately tracked. An
+    unbalanced entry is blocked at three independent layers: a Zod schema,
+    the single postTransaction() gate in the domain layer, and a SQL CHECK
+    constraint at the database level. Also includes a rule-based
+    auto-categorizer (zero AI cost, learns from corrections), CSV bank
+    import, envelope budgeting with rollover, and an optional AI layer
+    ("Ask about your spending") that only activates with a user-supplied
+    key and only ever sees aggregated totals, never the raw ledger. No
+    backend, no cloud database — every record lives in on-device SQLite.
+    It's a mobile app, not a hosted site, so there's no live web demo link;
+    the source is public to clone and run. Stack: Expo, React Native,
+    TypeScript, Expo Router, SQLite, Zod, Claude Haiku, Vitest (47 tests on
+    the ledger alone).
 
 BOOKING & CONTACT
 Discovery call: https://calendly.com/rymorai/discovery-call

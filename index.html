@@ -215,8 +215,8 @@ function renderServices(){
    CASE STUDY DATA (card summaries only)
    The full breakdown, videos, and stats for each case study now live on
    their own page (case-<id>.html) — see those files to edit that content.
-   To add a GoHighLevel / Zapier / Make.com case study later, push a new
-   object here with platform set to 'ghl' | 'zapier' | 'make', build a
+   To add a GoHighLevel / Make.com case study later, push a new
+   object here with platform set to 'ghl' | 'make', build a
    matching case-<id>.html from one of the existing ones as a template.
    ========================================================================= */
 const PLATFORMS = [
@@ -224,8 +224,7 @@ const PLATFORMS = [
   { id:'custom',label:'Full-Stack' },
   { id:'n8n',   label:'n8n' },
   { id:'make',  label:'Make.com' },
-  { id:'ghl',   label:'GoHighLevel' },
-  { id:'zapier',label:'Zapier' }
+  { id:'ghl',   label:'GoHighLevel' }
 ];
 
 const CASE_DATA = [
@@ -309,6 +308,15 @@ const CASE_DATA = [
     blurb:'An internal ops platform where the AI doesn\'t just answer policy questions — it drafts the request, coaches the new hire, and checks the document. Live, working demo.',
     image:'assets/NexusCore.png',
     page:'case-nexuscore.html'
+  },
+  {
+    id:'petal',
+    platform:'custom',
+    tag:'Full-Stack AI Engineering — Personal Finance &amp; Double-Entry Ledger',
+    title:'Petal',
+    blurb:'An offline-first budgeting app built on real double-entry bookkeeping — every peso is structurally impossible to lose track of, with an optional AI layer that costs a fraction of a cent per question.',
+    image:'assets/Petal.png',
+    page:'case-petal.html'
   }
 ];
 
@@ -317,16 +325,11 @@ const CASE_DATA = [
 ------------------------------------------------------------------------- */
 let activePlatform = 'all';
 
-function countFor(platformId){
-  if(platformId === 'all') return CASE_DATA.length;
-  return CASE_DATA.filter(c => c.platform === platformId).length;
-}
-
 function renderFilterBar(){
   const bar = document.getElementById('filterBar');
   bar.innerHTML = PLATFORMS.map(p => `
     <button class="filter-btn${p.id === activePlatform ? ' active' : ''}" data-platform="${p.id}">
-      ${p.label} <span class="count">${countFor(p.id)}</span>
+      ${p.label}
     </button>
   `).join('');
   bar.querySelectorAll('.filter-btn').forEach(btn => {
